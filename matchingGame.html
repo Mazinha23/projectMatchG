@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Matching Game</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+  <style type="text/css">
+  	.noClickAllowed {
+  		pointer-events : none;
+  	}
+
+  	.hide {
+  		display : none;
+  	}
+
+  	h2 {
+  		text-align: center;
+  	}
+/*  	.container {
+  		width: 580px;
+  	}*/
+    
+  	.row div{
+  		background:pink;
+  		border: 4px solid red;
+  	}
+
+  	.row div {
+  		width: 123px;
+  		height: 200px;
+  	}
+
+  	img {
+  		width: 230px;
+  		height: 198px;
+      }
+      
+    body {
+    width:960px;
+    background-color: plum;
+  }
+  </style>
+</head>
+
+<body>
+
+<h2>countdown: <span id="countdown"></span></h2>
+<h2>score: <span id="score"></span></h2>
+
+<form id="name">
+	<label for="firstName">What is your name?</label>
+	<input type="text" id="firstName"><br>
+	<input type ="submit"id = "submitButton" value = "submit">
+</form>
+
+
+<div class="container">
+	
+	<div class="row">
+	  <div class="col-3 imgContainer">
+	  	<img class="hide" src="https://media.giphy.com/media/xT8qBvH1pAhtfSx52U/giphy.gif"> 
+	  </div>
+
+	  <div class="col-3 imgContainer">
+	  	<img class="hide" src="https://media.giphy.com/media/HwmDZaI4YEeZ2/giphy.gif">
+	  </div> 
+
+	  <div class="col-3 imgContainer">
+	  	<img class="hide" src="https://media.giphy.com/media/HwmDZaI4YEeZ2/giphy.gif">
+	  </div>
+
+	  <div class="col-3 imgContainer">
+	  	<img class="hide" src="https://media.giphy.com/media/xT8qBvH1pAhtfSx52U/giphy.gif">
+	  </div>
+	</div>
+
+	<div class="row">
+	  <div class="col-3 imgContainer">
+	  	<img class="hide" src="https://media3.giphy.com/media/piTERt2CEdrLt2WLv0/giphy.gif?cid=ecf05e475d4a52c7334845734dc1d5bb&rid=giphy.gif">
+	  </div>
+
+	  <div class="col-3 imgContainer">
+	  	<img class="hide" src="https://media2.giphy.com/media/c07uLr6NAvVAY/giphy.gif?cid=790b76115d4a538c35647833414ba34d&rid=giphy.gif">
+
+	  </div>
+
+	  <div class="col-3 imgContainer">
+	  	<img class="hide" src="https://i.imgur.com/XqhVAA7.gif">
+	  </div>
+
+	  <div class="col-3 imgContainer">
+	  	<img class="hide" src="https://media.giphy.com/media/10jniOyQtffjbO/giphy.gif">
+	  </div>
+	</div>
+
+	<div class="row">
+	  <div class="col-3 imgContainer">
+	  	<img class="hide" src="https://media.giphy.com/media/SjgCkzRInVZK0/giphy.gif">
+	  </div>
+
+	  <div class="col-3 imgContainer">
+	  	<img class="hide" src="https://media.giphy.com/media/10jniOyQtffjbO/giphy.gif">
+	  </div> 
+
+	  <div class="col-3 imgContainer">
+	  	<img class="hide" src="https://media.giphy.com/media/SjgCkzRInVZK0/giphy.gif">
+
+	  </div>
+
+	  <div class="col-3 imgContainer">
+	  	<img class="hide" src="https://i.imgur.com/XqhVAA7.gif">
+      </div>
+      
+      <div class="col-3 imgContainer">
+        <img class="hide" src=https://media.giphy.com/media/eBCnpuRGBhQGY/giphy.gif>
+    </div>
+
+    <div class="col-3 imgContainer">
+        <img class="hide" src=https://media.giphy.com/media/jAe22Ec5iICCk/giphy.gif>
+    </div>
+    <div class="col-3 imgContainer">
+        <img class="hide" src=https://media.giphy.com/media/jAe22Ec5iICCk/giphy.gif>
+    </div>
+    <div class="col-3 imgContainer">
+        <img class="hide" src=https://media.giphy.com/media/eBCnpuRGBhQGY/giphy.gif>
+    </div>
+	</div>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-database.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+var firebaseConfig = {
+    apiKey: "AIzaSyBIhWAbx75eQKlBdJrHjhrWaj6Jzk4OvXo",
+    authDomain: "project-f384a.firebaseapp.com",
+    databaseURL: "https://project-f384a.firebaseio.com",
+    projectId: "project-f384a",
+    storageBucket: "",
+    messagingSenderId: "554667680468",
+    appId: "1:554667680468:web:6ae2bccf17864595"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  var db = firebase.database()
+  var formName;
+  function pushName(){
+	formName= $("#firstName").val()
+	  db.ref().push({
+		  name: formName
+	  })
+  }
+
+$(document).on("click", "#submitButton", function(){
+	pushName()
+})
+	//<h2>countdown: <span>29</span></h2>
+	var score = 0;
+	var counter = 30;
+
+	var pairsToWin = 6;
+
+	var alertedScore = false;
+
+	var $span = $('#countdown');
+
+	$('#score').text(score);
+
+	$span.text(counter);
+
+	function decreaseTime(){
+		if ((counter == 0) && (alertedScore == false)){
+			alert('your score is ' + score);
+			alertedScore = true;
+		}
+
+		counter--;
+		$span.text(counter);
+
+		if (counter == -1){
+			$span.text('time is up');
+			clearInterval(interval);
+		}
+	}
+
+	var interval = setInterval(decreaseTime, 1*1000);
+
+	var firstSrc; //the value of first is undefined
+	var secondSrc; //the value of second is undefined
+
+	var $firstImg;
+	var $secondImg;
+
+	$('.imgContainer').on('click', function(){
+		//if first src or second src is empty
+		if ((firstSrc == undefined) || (secondSrc == undefined)){ 
+
+			clearInterval(timer);
+
+			var $img = $(this).children().eq(0);
+
+			//disable clicking on this image after clicking on it
+			$img.addClass('noClickAllowed');
+
+			var src = $img.attr('src'); //image url goes in here
+
+			$img.removeClass('hide');
+
+			if (firstSrc == undefined){ //is first empty
+				firstSrc = src;
+				$firstImg = $img;
+			}else if(secondSrc == undefined){ //is second empty
+				secondSrc = src;
+				$secondImg = $img;
+			}
+
+			var timer = setTimeout(function(){
+				//is first and second not empty
+				if ((firstSrc != undefined) && (secondSrc != undefined)){ 
+					if (firstSrc != secondSrc){
+						$firstImg.addClass('hide');
+						$secondImg.addClass('hide');
+
+						$firstImg.removeClass('noClickAllowed');
+						$secondImg.removeClass('noClickAllowed');
+					}else {
+						score++;
+						$('#score').text(score);
+
+						if ((score == pairsToWin) && (alertedScore == false)){
+
+							alert('your score is ' + score);
+							alertedScore = true;
+
+							//stop the timer
+							clearInterval(interval);
+						}
+					}
+
+					firstSrc = undefined;
+					secondSrc = undefined;
+
+					//not needed
+					$firstImg = undefined;
+					$secondImg = undefined;
+				}
+			}, 750);
+
+		}
+	});
+
+
+</script>
+</body>
+
+</html>
